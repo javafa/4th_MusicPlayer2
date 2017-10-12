@@ -1,10 +1,12 @@
 package com.veryworks.android.musicplayer2;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.veryworks.android.musicplayer2.domain.Music;
+import com.veryworks.android.musicplayer2.player.PlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,5 +75,12 @@ public class MainActivity extends BaseActivity
     @Override
     public List<Music.Item> getList() {
         return music.data;
+    }
+
+    @Override
+    public void openPlayer(int position) {
+        Intent intent = new Intent(this, PlayerActivity.class);
+        intent.putExtra(Const.KEY_POSITION, position);
+        startActivity(intent);
     }
 }

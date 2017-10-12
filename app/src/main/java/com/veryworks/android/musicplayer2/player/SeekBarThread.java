@@ -3,10 +3,6 @@ package com.veryworks.android.musicplayer2.player;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Created by pc on 10/12/2017.
- */
-
 public class SeekBarThread extends Thread{
     // Singleton
     private static SeekBarThread instance = null;

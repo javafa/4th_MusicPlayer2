@@ -9,6 +9,15 @@ import android.net.Uri;
  */
 
 public class Player {
+    //Singleton
+    private static Player instance = new Player();
+    private Player(){ }
+    public static Player getInstance(){
+        if(instance == null)
+            instance = new Player();
+        return instance;
+    }
+
     private MediaPlayer player = null;
     private boolean loop = false;
 

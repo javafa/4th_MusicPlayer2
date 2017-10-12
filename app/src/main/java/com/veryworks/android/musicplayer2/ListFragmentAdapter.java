@@ -16,9 +16,11 @@ import java.util.List;
 
 public class ListFragmentAdapter
         extends RecyclerView.Adapter<ListFragmentAdapter.Holder>{
+    ListFragment.IActivityInteract listener;
     List<Music.Item> data;
-    public ListFragmentAdapter(List<Music.Item> data) {
+    public ListFragmentAdapter(List<Music.Item> data,ListFragment.IActivityInteract listener) {
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class ListFragmentAdapter
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         Music.Item item = data.get(position);
+        holder.position = position;
         holder.id.setText(item.id);
         holder.content.setText(item.title);
     }
@@ -41,12 +44,20 @@ public class ListFragmentAdapter
     }
 
     public class Holder extends RecyclerView.ViewHolder{
+        int position;
         TextView id;
         TextView content;
         public Holder(View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.id);
             content = itemView.findViewById(R.id.content);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.openPlayer(position);
+                }
+            });
         }
     }
 }

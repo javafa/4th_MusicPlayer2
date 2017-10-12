@@ -34,7 +34,7 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.list);
-        ListFragmentAdapter adapter = new ListFragmentAdapter(listener.getList());
+        ListFragmentAdapter adapter = new ListFragmentAdapter(listener.getList(), listener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
@@ -42,5 +42,6 @@ public class ListFragment extends Fragment {
 
     public interface IActivityInteract {
         public List<Music.Item> getList();
+        public void openPlayer(int position);
     }
 }
