@@ -16,6 +16,9 @@ public class SeekBarThread extends Thread{
     }
 
     private boolean runFlag = true;
+    public void setStop(){
+        runFlag = false;
+    }
     // CopyOnWriteArrayList <= 동기화를 지원하는 컬렉션
     // run() 함수의 향상된 for문에서 observers를 읽고 있으면
     //       대기하고 있다가 읽기가 끝나면 add(), remove()를 실행해서
@@ -33,7 +36,6 @@ public class SeekBarThread extends Thread{
         while(runFlag){
             for(IObserver o :observers)
                 o.setProgress();
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

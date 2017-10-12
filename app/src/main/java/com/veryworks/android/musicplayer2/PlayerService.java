@@ -6,9 +6,11 @@ import android.os.IBinder;
 
 import com.veryworks.android.musicplayer2.domain.Music;
 import com.veryworks.android.musicplayer2.player.Player;
+import com.veryworks.android.musicplayer2.player.SeekBarThread;
 
 public class PlayerService extends Service {
     Player player = null;
+    SeekBarThread thread = null;
     Music music = null;
     int current = -1;
     public PlayerService() {}
@@ -17,6 +19,8 @@ public class PlayerService extends Service {
     public void onCreate() {
         super.onCreate();
         player = Player.getInstance();
+        thread = SeekBarThread.getInstance();
+        thread.start();
         music = Music.getInstance();
     }
 
@@ -64,7 +68,12 @@ public class PlayerService extends Service {
 
     @Override
     public void onDestroy() {
-        player = null;
+        if(player != null)
+            player = null;
+        if(thread != null) {
+            thread.setStop();
+            thread = null;
+        }
         super.onDestroy();
     }
 }

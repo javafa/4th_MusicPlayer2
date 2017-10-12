@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
+import com.veryworks.android.musicplayer2.Const;
+
 /**
  * Created by pc on 10/12/2017.
  */
@@ -17,9 +19,10 @@ public class Player {
             instance = new Player();
         return instance;
     }
-
+    // 멤버변수
     private MediaPlayer player = null;
     private boolean loop = false;
+    private int status = Const.STAT_STOP;
 
     // 음원 세팅
     public void set(Context context, Uri musicUri){
@@ -32,13 +35,17 @@ public class Player {
     }
 
     public void start(){
-        if(player != null)
+        if(player != null) {
             player.start();
+            status = Const.STAT_PLAY;
+        }
     }
 
     public void pause(){
-        if(player != null)
+        if(player != null) {
             player.pause();
+            status = Const.STAT_PAUSE;
+        }
     }
 
     public void stop(){
@@ -46,6 +53,29 @@ public class Player {
             player.stop();
             player.release();
             player = null;
+            status = Const.STAT_STOP;
         }
+    }
+
+    public int getStatus(){
+        return status;
+    }
+
+    public boolean isPlay(){
+        if(player != null)
+            return player.isPlaying();
+        return false;
+    }
+
+    public int getCurrent(){
+        if(player != null)
+            return player.getCurrentPosition();
+        return 0;
+    }
+
+    public int getDuration(){
+        if(player != null)
+            return player.getDuration();
+        return 0;
     }
 }

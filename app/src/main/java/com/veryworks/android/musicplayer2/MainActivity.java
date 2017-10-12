@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.veryworks.android.musicplayer2.domain.Music;
+import com.veryworks.android.musicplayer2.player.Player;
 import com.veryworks.android.musicplayer2.player.PlayerActivity;
 
 import java.util.ArrayList;
@@ -34,11 +35,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void init() {
+        load();
         initView();
         initTab();
         initViewPager();
         conTabWithViewPager();
-        load();
+        checkPlayer();
+    }
+    void checkPlayer(){
+        if(Player.getInstance().isPlay())
+            openPlayer(-1);
     }
     void initView(){
         setContentView(R.layout.activity_main);
