@@ -28,11 +28,14 @@ public class MainActivity extends BaseActivity
     private ViewPager viewPager;
     private TabLayout tablayout;
 
+    Music music = null;
+
     @Override
     public void init() {
         initView();
         initTab();
         initViewPager();
+        conTabWithViewPager();
         load();
     }
     void initView(){
@@ -57,7 +60,11 @@ public class MainActivity extends BaseActivity
         viewPager.setAdapter(adapter);
     }
 
-    Music music = null;
+    void conTabWithViewPager(){
+        tablayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
+    }
+
     void load(){
         music = Music.getInstance();
         music.load(this);

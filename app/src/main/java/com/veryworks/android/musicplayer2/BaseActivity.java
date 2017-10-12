@@ -3,6 +3,7 @@ package com.veryworks.android.musicplayer2;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 볼륨조절 기능추가
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         // 앱 버전 체크 - 호환성 처리
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             checkPermission();
